@@ -52,13 +52,7 @@ const FormikAntdYupForm = () => (
                 <InputNumber
                   name="age"
                   id="fayf_age"
-                  onChange={v => {
-                    if (v === null) {
-                      setFieldValue('age', '')
-                    } else {
-                      setFieldValue('age', v)
-                    }
-                  }}
+                  onChange={v => setFieldValue('age', v)}
                   onBlur={handleBlur}
                   value={values.age}
                   placeholder="type your age"

@@ -3,7 +3,7 @@ import { Formik, Field } from 'formik'
 import * as Yup from 'yup'
 
 import styles from './FormStyles.module.scss'
-import { Input, InputNumber } from 'antd'
+import { InputNumber, Input } from 'antd'
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().required('Please input your username!'),
@@ -13,21 +13,35 @@ const validationSchema = Yup.object().shape({
     .required('Please input your age!'),
 })
 
+const AntdInput = ({ field, form: { touched, errors }, ...props }) => (
+  <>
+    <Input {...field} {...props} />
+    {errors[field.name] && <div>{errors[field.name]}</div>}
+  </>
+)
+
+const AntdInputNumber = ({
+  field,
+  form: { setFieldValue, touched, errors },
+  ...props
+}) => (
+  <>
+    <InputNumber
+      {...field}
+      {...props}
+      onChange={v => setFieldValue('age', v)}
+    />
+    {errors[field.name] && <div>{errors[field.name]}</div>}
+  </>
+)
+
 const FormikFieldAntdYupForm = () => (
   <Formik
     initialValues={{ username: '', age: '' }}
     onSubmit={(values, actions) => console.log('submit!', values, actions)}
     validationSchema={validationSchema}
   >
-    {({
-      handleBlur,
-      handleSubmit,
-      handleChange,
-      isValid,
-      setFieldValue,
-      values,
-      errors,
-    }) => {
+    {({ handleSubmit, handleChange, isValid, setFieldValue, errors }) => {
       return (
         <form onSubmit={handleSubmit}>
           <h2>FormikFieldAntdYupForm</h2>
@@ -36,24 +50,22 @@ const FormikFieldAntdYupForm = () => (
               <label htmlFor="ffayf_username">User Name:</label>
               <div>
                 <Field
-                  name="username"
+                  component={AntdInput}
                   id="ffayf_username"
+                  name="username"
                   placeholder="Say my name"
                 />
-                {errors.username && <div>{errors.username}</div>}
               </div>
             </li>
             <li className={styles.formLine}>
               <label htmlFor="ffayf_age">Age:</label>
               <div>
                 <Field
-                  name="age"
+                  component={AntdInputNumber}
                   id="ffayf_age"
-                  component={InputNumber}
-                  onChange={v => setFieldValue('age', v)}
+                  name="age"
                   placeholder="type your age"
                 />
-                {errors.age && <div>{errors.age}</div>}
               </div>
             </li>
             <li className={styles.buttonsLine}>
