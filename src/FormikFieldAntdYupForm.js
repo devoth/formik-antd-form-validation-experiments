@@ -13,7 +13,7 @@ const validationSchema = Yup.object().shape({
     .required('Please input your age!'),
 })
 
-const AntdInput = ({ field, form: { touched, errors }, ...props }) => (
+const AntdInput = ({ field, form: { errors }, ...props }) => (
   <>
     <Input {...field} {...props} />
     {errors[field.name] && <div>{errors[field.name]}</div>}
@@ -22,7 +22,7 @@ const AntdInput = ({ field, form: { touched, errors }, ...props }) => (
 
 const AntdInputNumber = ({
   field,
-  form: { setFieldValue, touched, errors },
+  form: { setFieldValue, errors },
   ...props
 }) => (
   <>
@@ -41,7 +41,7 @@ const FormikFieldAntdYupForm = () => (
     onSubmit={(values, actions) => console.log('submit!', values, actions)}
     validationSchema={validationSchema}
   >
-    {({ handleSubmit, handleChange, isValid, setFieldValue, errors }) => {
+    {({ handleSubmit, isValid }) => {
       return (
         <form onSubmit={handleSubmit}>
           <h2>FormikFieldAntdYupForm</h2>

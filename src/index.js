@@ -8,6 +8,7 @@ import FormikYupForm from './FormikYupForm'
 import FormikFieldYupForm from './FormikFieldYupForm'
 import FormikAntdYupForm from './FormikAntdYupForm'
 import FormikFieldAntdYupForm from './FormikFieldAntdYupForm'
+import FormikFieldAntdYupFormDry from './FormikFieldAntdYupFormDry'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <FormikFieldYupForm />
       <FormikAntdYupForm />
       <FormikFieldAntdYupForm />
+      <FormikFieldAntdYupFormDry />
     </div>
   )
 }
